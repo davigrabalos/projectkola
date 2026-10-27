@@ -1,8 +1,9 @@
 // Cloudflare Worker: serves the built site (dist/), the /api routes and the jobs cron.
-// First deploy: `npx wrangler d1 create kola`, paste the database_id below, then `npm run deploy`.
+// Deploy: `npm run deploy` (also what Cloudflare Workers Builds should run). The first deploy creates the
+// "kola" D1 database automatically (no database_id needed: wrangler finds it by name), then applies migrations.
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "kola",
+  "name": "projectkola",
   "main": "worker/index.ts",
   "compatibility_date": "2026-10-01",
   "assets": {
@@ -17,7 +18,6 @@
     {
       "binding": "DB",
       "database_name": "kola",
-      "database_id": "00000000-0000-0000-0000-000000000000",
       "migrations_dir": "worker/migrations"
     }
   ],

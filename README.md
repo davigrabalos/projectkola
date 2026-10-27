@@ -77,7 +77,7 @@ One Worker (`worker/`, config in `wrangler.jsonc`) serves the built site, the AP
 
 **Local:** `cp .dev.vars.example .dev.vars`, `npm run db:migrate:local`, `npm run build`, `npm run dev:api`, then load data with `curl -X POST -H "Authorization: Bearer local-dev-token" localhost:8787/api/admin/ingest` (repeat ~12 times for every board) or `curl "localhost:8787/__scheduled?cron=*/15+*+*+*+*"`.
 
-**Deploy:** `npx wrangler login` → `npx wrangler d1 create kola` and paste the id into `wrangler.jsonc` → `npm run db:migrate` → `npx wrangler secret put ADZUNA_APP_ID` / `ADZUNA_APP_KEY` (optional) → `npm run deploy` → `npx wrangler tail` to watch the cron.
+**Deploy:** `npm run deploy` builds, deploys and applies migrations. The first deploy creates the `kola` D1 database by itself (the config has no `database_id`; wrangler finds the database by name). From GitHub (Workers Builds): set the deploy command to `npm run deploy`. From your machine: `npx wrangler login` first. Secrets: `ADMIN_TOKEN` (enables `POST /api/admin/ingest` to load jobs right away), `ADZUNA_APP_ID` / `ADZUNA_APP_KEY` (optional), set with `npx wrangler secret put` or in the dashboard. `npx wrangler tail` watches the cron.
 
 **Terms that apply:** every job links back to its original posting. Adzuna jobs carry a "Jobs by Adzuna" label and are applied for through Adzuna's redirect link; Adzuna's predicted salaries are not shown. Adzuna's commercial use needs a licence after a 14-day trial: contact Adzuna before launching publicly. LinkedIn and Indeed have no open job-listing APIs, and scraping them breaks their terms, so they are not sources.
 

@@ -13,7 +13,7 @@
     "e2e": "node scripts/e2e/run.mjs",
     "db:migrate:local": "wrangler d1 migrations apply kola --local",
     "db:migrate": "wrangler d1 migrations apply kola --remote",
-    "deploy": "npm run build && wrangler deploy",
+    "deploy": "npm run build && wrangler deploy && npm run db:migrate",
     "e2e:api": "node scripts/e2e/api.mjs",
     "e2e:real": "node scripts/e2e/real-data.mjs"
   },
