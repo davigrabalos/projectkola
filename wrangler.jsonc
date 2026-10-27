@@ -1,0 +1,28 @@
+// Cloudflare Worker: serves the built site (dist/), the /api routes and the jobs cron.
+// First deploy: `npx wrangler d1 create kola`, paste the database_id below, then `npm run deploy`.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "kola",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    // Everything else is served as a static file without running the Worker.
+    // ("/__scheduled" only lets `wrangler dev --test-scheduled` reach the cron handler locally.)
+    "run_worker_first": ["/api/*", "/__scheduled"]
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "kola",
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "worker/migrations"
+    }
+  ],
+  // Every 15 minutes, a few sources at a time. Needs the Workers Paid plan for CPU (see worker/ingest/run.ts).
+  "triggers": { "crons": ["*/15 * * * *"] },
+  "vars": { "INGEST_PER_RUN": "3", "CACHE_TTL": "60" },
+  "observability": { "enabled": true }
+}

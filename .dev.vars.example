@@ -1,0 +1,8 @@
+# Copy to .dev.vars for `npm run dev:api` (never commit .dev.vars).
+# Adzuna keys: https://developer.adzuna.com (Adzuna is skipped while these are empty).
+ADZUNA_APP_ID=
+ADZUNA_APP_KEY=
+# Enables POST /api/admin/ingest locally.
+ADMIN_TOKEN=local-dev-token
+# No edge caching while developing.
+CACHE_TTL=0

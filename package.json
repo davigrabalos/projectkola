@@ -1,0 +1,35 @@
+{
+  "name": "project-kola",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "dev:api": "wrangler dev --test-scheduled",
+    "build": "tsc -b && tsc -p worker/tsconfig.json && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -b --noEmit && tsc -p worker/tsconfig.json",
+    "test:worker": "node --experimental-strip-types --no-warnings --test \"worker/test/*.test.mjs\"",
+    "e2e": "node scripts/e2e/run.mjs",
+    "db:migrate:local": "wrangler d1 migrations apply kola --local",
+    "db:migrate": "wrangler d1 migrations apply kola --remote",
+    "deploy": "npm run build && wrangler deploy",
+    "e2e:api": "node scripts/e2e/api.mjs",
+    "e2e:real": "node scripts/e2e/real-data.mjs"
+  },
+  "dependencies": {
+    "motion": "^12.43.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.2"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261027.1",
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.2",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.9",
+    "wrangler": "^4.154.0"
+  }
+}

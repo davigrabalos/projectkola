@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="description" content="Find your next job. Search roles, explore companies and apply in a few clicks." />
+    <meta name="theme-color" content="#151617" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- Type pairing borrowed from motion.dev: TASA Orbiter (text) + Geist Mono (labels, numbers).
+         Both are open-licensed (SIL OFL) and served by Google Fonts; variable weight axis, one file each. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400..600&family=TASA+Orbiter:wght@400..800&display=swap" rel="stylesheet" />
+    <script>
+      // Apply the saved theme and personal accent before first paint so there is no flash.
+      // kola:accent holds the --accent-* variables computed by src/lib/accent.ts.
+      try {
+        var d = document.documentElement, t = localStorage.getItem('kola:theme');
+        if (t === 'light' || t === 'dark') d.dataset.theme = t;
+        var a = JSON.parse(localStorage.getItem('kola:accent') || 'null');
+        if (a) for (var k in a) if (k.indexOf('--accent') === 0) d.style.setProperty(k, String(a[k]));
+      } catch (e) {}
+    </script>
+    <title>Kola · Find your next job</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

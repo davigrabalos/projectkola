@@ -1,0 +1,341 @@
+/* =====================================================================
+   KOLA DESIGN TOKENS
+   ---------------------------------------------------------------------
+   Single source of truth. Components only reference these variables.
+
+   Direction: graphite black + off-white, with ONE personal accent colour
+   chosen by the user. Softly rounded geometry, acrylic (frosted glass)
+   chrome, reveal-highlight borders. Flat backgrounds: no glows or gradient washes.
+
+   Layers:
+     1. Palette           -> --palette-*   (fixed neutrals + status colours)
+     2. Personal accent   -> --accent-*    (written by src/lib/accent.ts)
+     3. Semantic roles    -> --color-*     (what the UI uses)
+     4. Effects           -> --glass-*, --glow-*, --reveal-*
+     5. Scales            -> type, space, shape, motion, z-index
+   Default theme is dark graphite. Light (off-white) lives under [data-theme="light"].
+   ===================================================================== */
+
+:root {
+  /* ---------- 1. Palette: neutrals ---------- */
+  --palette-white:        #FFFFFF;
+  /* Graphite: near-black greys for the dark theme and for text on light */
+  --palette-graphite-950: #0E0F10;
+  --palette-graphite-900: #151617;
+  --palette-graphite-850: #1B1C1E;
+  --palette-graphite-800: #222325;
+  --palette-graphite-700: #2D2E31;
+  --palette-graphite-600: #434448;
+  --palette-graphite-500: #5F6064;
+  --palette-graphite-400: #8C8C8F;
+  --palette-graphite-300: #B6B5B3;
+  /* Off-white: warm paper tones for the light theme and for text on dark */
+  --palette-paper-50:     #FCFBF9;
+  --palette-paper-100:    #F5F3EF;
+  --palette-paper-200:    #EDEBE6;
+  --palette-paper-300:    #E1DED8;
+
+  /* Status colours: fixed, never follow the personal accent */
+  --palette-green-400: #86C29A;
+  --palette-green-700: #2F6E46;
+  --palette-amber-400: #D9B865;
+  --palette-amber-700: #7A5F1C;
+  --palette-red-400:   #DE8A86;
+  --palette-red-700:   #9B3B37;
+  --palette-blue-400:  #8DB3E0;
+  --palette-blue-700:  #2F5C93;
+
+  /* ---------- 2. Personal accent ----------
+     Defaults are Kola cyan (+ Kola orange companion), exactly what
+     accentVars('#2CAED4') in src/lib/accent.ts produces. When a user picks
+     a colour, the same variables are set inline on <html> and win over these.
+     -d = dark theme, -l = light theme. All pass WCAG AA for text. */
+  --accent-d:            #2CAED4;
+  --accent-d-hover:      #42BEE5;
+  --accent-d-strong:     #6FDBFF;
+  --accent-d-rgb:        44 174 212;
+  --accent2-d:           #EC7B26;
+  --accent2-d-hover:     #FE8B3B;
+  --accent2-d-strong:    #FFB88E;
+  --accent2-d-rgb:       236 123 38;
+  --accent-l:            #00718D;
+  --accent-l-hover:      #00627B;
+  --accent-l-strong:     #00566C;
+  --accent-l-rgb:        0 113 141;
+  --accent2-l:           #A34D00;
+  --accent2-l-hover:     #8E4300;
+  --accent2-l-strong:    #793800;
+  --accent2-l-rgb:       163 77 0;
+
+  /* ---------- 3. Semantic colours (dark graphite default) ---------- */
+  /* Channels first: the light theme only swaps these, and every
+     translucent tint and hover ring below follows. */
+  --color-brand-rgb:      var(--accent-d-rgb);
+  --color-accent-rgb:     var(--accent2-d-rgb);
+
+  --color-brand:          var(--accent-d);
+  --color-brand-hover:    var(--accent-d-hover);
+  --color-brand-strong:   var(--accent-d-strong);
+  --color-brand-subtle:   rgb(var(--color-brand-rgb) / 0.12);
+  --color-brand-muted:    rgb(var(--color-brand-rgb) / 0.24);
+  --color-on-brand:       var(--palette-graphite-950);
+
+  --color-accent:         var(--accent2-d);
+  --color-accent-hover:   var(--accent2-d-hover);
+  --color-accent-strong:  var(--accent2-d-strong);
+  --color-accent-subtle:  rgb(var(--color-accent-rgb) / 0.14);
+  --color-on-accent:      var(--palette-graphite-950);
+
+  --color-bg:             var(--palette-graphite-900);
+  --color-bg-deep:        var(--palette-graphite-950);
+  --color-surface:        var(--palette-graphite-850);
+  --color-surface-raised: var(--palette-graphite-800);
+  --color-surface-sunken: var(--palette-graphite-950);
+  --color-surface-hover:  var(--palette-graphite-800);
+  --color-overlay:        rgb(8 9 10 / 0.6);
+
+  --color-text:           var(--palette-paper-200);
+  --color-text-muted:     var(--palette-graphite-300);
+  --color-text-subtle:    var(--palette-graphite-400);
+  --color-text-inverse:   var(--palette-graphite-950);
+  --color-link:           var(--accent-d-hover);
+
+  --color-border:         rgb(237 235 230 / 0.08);
+  --color-border-strong:  rgb(237 235 230 / 0.16);
+  --color-focus-ring:     var(--accent-d-hover);
+
+  --color-success:        var(--palette-green-400);
+  --color-success-subtle: rgb(134 194 154 / 0.14);
+  --color-warning:        var(--palette-amber-400);
+  --color-warning-subtle: rgb(217 184 101 / 0.14);
+  --color-danger:         var(--palette-red-400);
+  --color-danger-subtle:  rgb(222 138 134 / 0.14);
+  --color-info:           var(--palette-blue-400);
+  --color-info-subtle:    rgb(141 179 224 / 0.14);
+
+  /* ---------- 4. Effects ---------- */
+  /* Acrylic: only used on chrome (header, drawers, preview, toasts, hero search),
+     never on every list card, because backdrop-filter is expensive per element. */
+  --glass-bg:          rgb(27 28 30 / 0.62);
+  --glass-bg-strong:   rgb(21 22 23 / 0.86);
+  --glass-border:      rgb(237 235 230 / 0.10);
+  --glass-highlight:   rgb(255 255 255 / 0.06);  /* top inner edge light */
+  --glass-blur:        18px;
+  --glass-saturate:    150%;
+  --glass-noise-opacity: 0.035;
+
+  /* Glows are retired: hover/active states get a crisp 1px accent ring, nothing blurred. */
+  --glow-brand:        0 0 0 1px rgb(var(--color-brand-rgb) / 0.6);
+  --glow-accent:       0 0 0 1px rgb(var(--color-accent-rgb) / 0.6);
+
+  /* Reveal highlight (Fluent-style border light that follows the cursor) */
+  --reveal-border:     rgb(255 255 255 / 0.38);
+  --reveal-size:       180px;
+
+  /* Skeleton loaders */
+  --skeleton-base:  rgb(255 255 255 / 0.06);
+  --skeleton-shine: rgb(255 255 255 / 0.11);
+
+  /* Illustrations (unDraw, recoloured). Dark: mid-graphite figures on dark-UI greys,
+     the personal accent carries the colour. Light values are set in the light theme. */
+  --illo-accent:      var(--color-brand);
+  --illo-accent-soft: color-mix(in oklab, var(--color-brand) 70%, var(--palette-paper-50));
+  --illo-ink:         color-mix(in oklab, var(--palette-graphite-500) 75%, var(--palette-graphite-400));
+  --illo-ink-soft:    var(--palette-graphite-400);
+  --illo-line:        color-mix(in oklab, var(--palette-graphite-700), var(--palette-graphite-600));
+  --illo-shade:       var(--palette-graphite-700);
+  --illo-tint:        var(--palette-graphite-800);
+  --illo-paper:       color-mix(in oklab, var(--palette-graphite-700), var(--palette-graphite-600));
+
+  --gradient-brand:  linear-gradient(90deg, var(--color-brand) 0%, var(--color-accent) 100%);
+
+  /* ---------- 5. Typography ----------
+     Pairing and rhythm borrowed from motion.dev: TASA Orbiter for text and
+     titles, Geist Mono for labels and numbers (both loaded in index.html).
+     Tight negative tracking on headings, 15px body, tracked mono kickers.
+     System fonts are the fallback while the web fonts load. */
+  --font-system:  -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-sans:    "TASA Orbiter", var(--font-system);
+  --font-display: var(--font-sans);
+  --font-mono:    "Geist Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+  --text-kicker: 0.6875rem;  /* 11px: uppercase tracked mono labels only */
+  --text-2xs:  0.75rem;      /* 12px: smallest running text (tags, hints) */
+  --text-xs:   0.8125rem;    /* 13px */
+  --text-sm:   0.875rem;     /* 14px */
+  --text-base: 0.9375rem;    /* 15px: body + buttons */
+  --text-lg:   1.125rem;     /* 18px */
+  --text-xl:   1.25rem;      /* 20px: h3 */
+  --text-2xl:  1.875rem;     /* 30px: h2 */
+  --text-3xl:  clamp(1.75rem, 1.3rem + 1.6vw, 2.5rem);    /* 28-40px: h1 */
+  --text-4xl:  clamp(2.75rem, 1.4rem + 4.4vw, 4.75rem);   /* 44-76px: hero */
+
+  /* Variable-font weights (TASA Orbiter has a continuous 400-800 axis). */
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-semibold: 580;
+  --weight-bold:     690;
+  --weight-display:  720;
+
+  --leading-tight:   1.05;
+  --leading-normal:  1.5;
+  --leading-relaxed: 1.65;
+  --tracking-body:    -0.01em;
+  --tracking-button:  -0.02em;
+  --tracking-heading: -0.04em;
+  --tracking-mono:    0.06em;
+  --tracking-kicker:  0.14em;
+
+  /* ---------- Spacing (4px base) ---------- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+
+  /* ---------- Shape: softly rounded ----------
+     Small controls get small radii, big surfaces bigger ones, so corners
+     look equally soft at every size. Full-width chrome (header, drawers,
+     sticky bars) stays square because it meets the screen edge. */
+  --radius-xs:   4px;    /* kbd hints, skeleton lines */
+  --radius-sm:   6px;    /* tags, small icon tiles */
+  --radius-md:   8px;    /* buttons, inputs, menu items */
+  --radius-lg:   12px;   /* cards, tiles, toasts, dropdowns */
+  --radius-xl:   16px;   /* hero search, large panels, dialogs */
+  --radius-pill: 999px;  /* chips, badges, avatars, swatches */
+  --border-width: 1px;
+  --accent-bar: 3px;   /* selection indicator (a rounded pill, Fluent-style) */
+
+  /* ---------- Elevation ---------- */
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.3);
+  --shadow-md: 0 8px 24px rgb(0 0 0 / 0.35);
+  --shadow-lg: 0 24px 64px rgb(0 0 0 / 0.5);
+
+  /* ---------- Motion ---------- */
+  --duration-fast: 120ms;
+  --duration-base: 220ms;
+  --duration-slow: 420ms;
+  --duration-wipe: 400ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);   /* entrances, lifts (motion.dev uses the same) */
+  --ease-wipe:     cubic-bezier(0.25, 0, 0, 1);     /* clip-path fills and sweeps */
+  --ease-unfold:   cubic-bezier(0.25, 1, 0.5, 1);   /* menus opening */
+  --ease-spring:   cubic-bezier(0.34, 1.56, 0.64, 1); /* small overshoot: dock magnification */
+
+  /* ---------- Layout ---------- */
+  --container-max: 1200px;   /* motion.dev's wide layout width */
+  --measure: 65ch;           /* comfortable reading line length */
+  /* Floating island navigation: it floats --island-gap below the top edge,
+     and pages reserve --header-offset so content starts clear of it. */
+  --island-height: 52px;
+  --island-height-compact: 44px;
+  --island-gap: 12px;
+  /* Safe areas (notch, Dynamic Island, home indicator). Needs viewport-fit=cover in index.html. */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --header-offset: calc(var(--safe-top) + var(--island-height) + var(--island-gap) * 2);
+  --gutter: var(--space-4);
+  --tap-min: 44px;            /* minimum touch target; raised to 48px on touch screens */
+
+  /* ---------- Z-index ---------- */
+  --z-header: 50;
+  --z-dropdown: 60;
+  --z-drawer: 100;
+  --z-toast: 200;
+
+  color-scheme: dark;
+}
+
+@media (min-width: 768px) {
+  :root { --gutter: var(--space-6); }
+}
+/* 44pt (iOS) and 48dp (Android): touch screens get the larger of the two. */
+@media (pointer: coarse) {
+  :root { --tap-min: 48px; }
+}
+
+/* ---------- Light theme: graphite on off-white ---------- */
+:root[data-theme="light"] {
+  --color-brand-rgb:      var(--accent-l-rgb);
+  --color-accent-rgb:     var(--accent2-l-rgb);
+
+  --color-brand:          var(--accent-l);
+  --color-brand-hover:    var(--accent-l-hover);
+  --color-brand-strong:   var(--accent-l-strong);
+  --color-brand-subtle:   rgb(var(--color-brand-rgb) / 0.08);
+  --color-brand-muted:    rgb(var(--color-brand-rgb) / 0.18);
+  --color-on-brand:       var(--palette-white);
+
+  --color-accent:         var(--accent2-l);
+  --color-accent-hover:   var(--accent2-l-hover);
+  --color-accent-strong:  var(--accent2-l-strong);
+  --color-accent-subtle:  rgb(var(--color-accent-rgb) / 0.10);
+  --color-on-accent:      var(--palette-white);
+
+  --color-bg:             var(--palette-paper-100);
+  --color-bg-deep:        var(--palette-paper-200);
+  --color-surface:        var(--palette-paper-50);
+  --color-surface-raised: var(--palette-white);
+  --color-surface-sunken: var(--palette-paper-200);
+  --color-surface-hover:  var(--palette-paper-100);
+  --color-overlay:        rgb(21 22 23 / 0.4);
+
+  --color-text:           var(--palette-graphite-900);
+  --color-text-muted:     var(--palette-graphite-600);
+  --color-text-subtle:    var(--palette-graphite-500);
+  --color-text-inverse:   var(--palette-paper-50);
+  --color-link:           var(--accent-l);
+
+  --color-border:         rgb(21 22 23 / 0.10);
+  --color-border-strong:  rgb(21 22 23 / 0.20);
+  --color-focus-ring:     var(--accent-l);
+
+  --color-success:        var(--palette-green-700);
+  --color-success-subtle: rgb(47 110 70 / 0.10);
+  --color-warning:        var(--palette-amber-700);
+  --color-warning-subtle: rgb(122 95 28 / 0.10);
+  --color-danger:         var(--palette-red-700);
+  --color-danger-subtle:  rgb(155 59 55 / 0.10);
+  --color-info:           var(--palette-blue-700);
+  --color-info-subtle:    rgb(47 92 147 / 0.10);
+
+  --glass-bg:          rgb(252 251 249 / 0.68);
+  --glass-bg-strong:   rgb(252 251 249 / 0.92);
+  --glass-border:      rgb(21 22 23 / 0.10);
+  --glass-highlight:   rgb(255 255 255 / 0.7);
+  --glass-noise-opacity: 0.025;
+
+  --glow-brand:        0 0 0 1px rgb(var(--color-brand-rgb) / 0.55);
+  --glow-accent:       0 0 0 1px rgb(var(--color-accent-rgb) / 0.55);
+
+  --reveal-border:     rgb(21 22 23 / 0.28);
+
+  --skeleton-base:  rgb(21 22 23 / 0.07);
+  --skeleton-shine: rgb(21 22 23 / 0.03);
+
+  --illo-accent-soft: color-mix(in oklab, var(--color-brand) 65%, var(--palette-white));
+  --illo-ink:         var(--palette-graphite-900);
+  --illo-ink-soft:    var(--palette-graphite-500);
+  --illo-line:        var(--palette-graphite-300);
+  --illo-shade:       var(--palette-paper-300);
+  --illo-tint:        var(--palette-paper-200);
+  --illo-paper:       var(--palette-paper-50);
+
+  --shadow-sm: 0 1px 2px rgb(21 22 23 / 0.06);
+  --shadow-md: 0 8px 24px rgb(21 22 23 / 0.08);
+  --shadow-lg: 0 24px 64px rgb(21 22 23 / 0.16);
+
+  color-scheme: light;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --duration-fast: 0ms; --duration-base: 0ms; --duration-slow: 0ms; --duration-wipe: 0ms; }
+}

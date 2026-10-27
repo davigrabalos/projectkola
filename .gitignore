@@ -1,0 +1,12 @@
+node_modules
+dist
+.DS_Store
+*.local
+
+# Cloudflare
+.wrangler
+.dev.vars
+dist-e2e
+
+# TypeScript build info
+*.tsbuildinfo

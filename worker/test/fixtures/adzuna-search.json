@@ -1,0 +1,44 @@
+{
+  "_note": "Hand-written from Adzuna's documented search response shape (developer.adzuna.com), not real listings.",
+  "count": 3,
+  "results": [
+    {
+      "id": "5001",
+      "title": "Senior <strong>React</strong> Developer",
+      "description": "Join our team building <strong>React</strong> and TypeScript apps. Hybrid working from our Manchester office&hellip;",
+      "created": "2026-10-20T09:00:00Z",
+      "redirect_url": "https://www.adzuna.co.uk/jobs/land/ad/5001?se=x",
+      "company": { "display_name": "Northwind Labs" },
+      "location": { "display_name": "Manchester, Greater Manchester", "area": ["UK", "North West England", "Greater Manchester", "Manchester"] },
+      "salary_min": 60000,
+      "salary_max": 75000,
+      "salary_is_predicted": "0",
+      "contract_type": "permanent",
+      "contract_time": "full_time",
+      "category": { "label": "IT Jobs", "tag": "it-jobs" }
+    },
+    {
+      "id": "5002",
+      "title": "Customer Support Agent",
+      "description": "Help customers by phone and chat.",
+      "created": "2026-10-21T09:00:00Z",
+      "redirect_url": "https://www.adzuna.co.uk/jobs/land/ad/5002?se=x",
+      "company": { "display_name": "Acme Retail" },
+      "location": { "display_name": "Leeds, West Yorkshire" },
+      "salary_min": 24000,
+      "salary_max": 26000,
+      "salary_is_predicted": "1",
+      "contract_time": "part_time",
+      "category": { "label": "Customer Services Jobs", "tag": "customer-services-jobs" }
+    },
+    {
+      "id": "5003",
+      "title": "Job without an employer",
+      "description": "Should be skipped.",
+      "created": "2026-10-21T09:00:00Z",
+      "redirect_url": "https://www.adzuna.co.uk/jobs/land/ad/5003?se=x",
+      "company": {},
+      "location": { "display_name": "London" }
+    }
+  ]
+}

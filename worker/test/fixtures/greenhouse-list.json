@@ -1,0 +1,163 @@
+{
+ "jobs": [
+  {
+   "absolute_url": "https://careers.feedzai.com/job_description?gh_jid=7978882",
+   "data_compliance": [
+    {
+     "type": "gdpr",
+     "requires_consent": true,
+     "requires_processing_consent": true,
+     "requires_retention_consent": false,
+     "retention_period": 730,
+     "demographic_data_consent_applies": false
+    }
+   ],
+   "internal_job_id": 3347011,
+   "location": {
+    "name": "Portugal"
+   },
+   "metadata": [
+    {
+     "id": 4270704,
+     "name": "Region",
+     "value": "EMEA",
+     "value_type": "single_select"
+    },
+    {
+     "id": 4552375,
+     "name": "Profession",
+     "value": "Product Management",
+     "value_type": "single_select"
+    }
+   ],
+   "id": 7978882,
+   "updated_at": "2026-10-14T06:07:16-04:00",
+   "requisition_id": "ID_1325_01",
+   "title": "Advanced Product Manager - Digital Trust",
+   "company_name": "Feedzai",
+   "first_published": "2026-06-03T07:50:14-04:00",
+   "language": "en",
+   "application_deadline": null
+  },
+  {
+   "absolute_url": "https://careers.feedzai.com/job_description?gh_jid=8121243",
+   "data_compliance": [
+    {
+     "type": "gdpr",
+     "requires_consent": true,
+     "requires_processing_consent": true,
+     "requires_retention_consent": false,
+     "retention_period": 730,
+     "demographic_data_consent_applies": false
+    }
+   ],
+   "internal_job_id": 3512842,
+   "location": {
+    "name": "São Paulo, Brazil "
+   },
+   "metadata": [
+    {
+     "id": 4270704,
+     "name": "Region",
+     "value": "LATAM",
+     "value_type": "single_select"
+    },
+    {
+     "id": 4552375,
+     "name": "Profession",
+     "value": "Engineering",
+     "value_type": "single_select"
+    }
+   ],
+   "id": 8121243,
+   "updated_at": "2026-10-14T06:07:16-04:00",
+   "requisition_id": "ID_1100_02",
+   "title": "Advanced Software Engineer - Customer Success",
+   "company_name": "Feedzai",
+   "first_published": "2026-08-11T06:07:29-04:00",
+   "language": "en",
+   "application_deadline": null
+  },
+  {
+   "absolute_url": "https://careers.feedzai.com/job_description?gh_jid=8111748",
+   "data_compliance": [
+    {
+     "type": "gdpr",
+     "requires_consent": true,
+     "requires_processing_consent": true,
+     "requires_retention_consent": false,
+     "retention_period": 730,
+     "demographic_data_consent_applies": false
+    }
+   ],
+   "internal_job_id": 3513810,
+   "location": {
+    "name": "Portugal"
+   },
+   "metadata": [
+    {
+     "id": 4270704,
+     "name": "Region",
+     "value": "EMEA",
+     "value_type": "single_select"
+    },
+    {
+     "id": 4552375,
+     "name": "Profession",
+     "value": "Marketing",
+     "value_type": "single_select"
+    }
+   ],
+   "id": 8111748,
+   "updated_at": "2026-10-14T06:07:16-04:00",
+   "requisition_id": "ID_1248_02",
+   "title": "Analyst Relations Manager",
+   "company_name": "Feedzai",
+   "first_published": "2026-08-20T10:01:55-04:00",
+   "language": "en",
+   "application_deadline": null
+  },
+  {
+   "absolute_url": "https://careers.feedzai.com/job_description?gh_jid=8203797",
+   "data_compliance": [
+    {
+     "type": "gdpr",
+     "requires_consent": true,
+     "requires_processing_consent": true,
+     "requires_retention_consent": false,
+     "retention_period": 730,
+     "demographic_data_consent_applies": false
+    }
+   ],
+   "internal_job_id": 3513810,
+   "location": {
+    "name": "England, United Kingdom"
+   },
+   "metadata": [
+    {
+     "id": 4270704,
+     "name": "Region",
+     "value": "EMEA",
+     "value_type": "single_select"
+    },
+    {
+     "id": 4552375,
+     "name": "Profession",
+     "value": "Marketing",
+     "value_type": "single_select"
+    }
+   ],
+   "id": 8203797,
+   "updated_at": "2026-10-14T06:07:16-04:00",
+   "requisition_id": "ID_1248_02",
+   "title": "Analyst Relations Manager",
+   "company_name": "Feedzai",
+   "first_published": "2026-09-15T07:21:26-04:00",
+   "language": "en",
+   "application_deadline": null
+  }
+ ],
+ "meta": {
+  "total": 18
+ }
+}

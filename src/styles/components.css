@@ -1,0 +1,484 @@
+/* ===== Buttons (softly rounded, accent ring on primary hover) =====
+   Hover: a diagonal fill wipes across (clip-path, motion.dev style), arrows nudge forward. */
+.btn {
+  position: relative; isolation: isolate; /* lets the wipe layer (z-index -1) sit above the background */
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2);
+  min-height: var(--tap-min);
+  padding: 0 var(--space-5);
+  border: var(--border-width) solid transparent; border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-weight: var(--weight-semibold);
+  font-size: var(--text-base);
+  letter-spacing: var(--tracking-button);
+  line-height: 1;
+  text-decoration: none !important;
+  transition: background-color var(--duration-fast) var(--ease-standard), border-color var(--duration-fast), color var(--duration-fast), box-shadow var(--duration-base) var(--ease-standard), transform var(--duration-fast);
+  white-space: nowrap;
+}
+.btn:active { transform: scale(0.98); }
+/* Wipe layer: hidden as a zero-width sliver left of the button, sweeps to cover it on hover. */
+.btn--primary::after, .btn--secondary::after {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; border-radius: inherit;
+  clip-path: polygon(-1% 0%, -1% 0%, -100% 100%, -1% 100%);
+  transition: clip-path var(--duration-wipe) var(--ease-wipe);
+}
+.btn--primary:hover::after, .btn--secondary:hover::after { clip-path: polygon(0% 0%, 200% 0%, 100% 100%, 0% 100%); }
+.btn--primary { background: var(--color-brand); color: var(--color-on-brand); }
+.btn--primary::after { background: var(--color-brand-strong); }
+.btn--primary:hover { box-shadow: var(--glow-brand); }
+.btn--accent { background: var(--color-accent); color: var(--color-on-accent); }
+.btn--accent:hover { background: var(--color-accent-hover); box-shadow: var(--glow-accent); }
+.btn--secondary { background: var(--color-surface-raised); color: var(--color-text); border-color: var(--color-border-strong); }
+.btn--secondary::after { background: var(--color-brand-subtle); }
+.btn--secondary:hover { border-color: var(--color-brand); color: var(--color-brand-strong); }
+/* Directional icons nudge the way they point. */
+.btn svg, .link-arrow svg { transition: transform var(--duration-base) var(--ease-out-expo); }
+.btn:hover svg[data-icon="arrowRight"], .link-arrow:hover svg[data-icon="arrowRight"] { transform: translateX(3px); }
+.btn:hover svg[data-icon="arrowLeft"] { transform: translateX(-3px); }
+.btn:hover svg[data-icon="external"] { transform: translate(2px, -2px); }
+.btn--ghost { background: transparent; color: var(--color-text); }
+.btn--ghost:hover { background: var(--color-surface-hover); }
+.btn--sm { min-height: 36px; padding: 0 var(--space-3); font-size: var(--text-sm); }
+.btn--lg { min-height: 52px; padding: 0 var(--space-6); font-size: var(--text-base); }
+/* Full-width buttons may wrap a long label instead of pushing the layout past a phone screen. */
+.btn--block { width: 100%; white-space: normal; text-align: center; padding-block: var(--space-2); }
+.btn--icon { padding: 0; width: var(--tap-min); }
+.btn--sm.btn--icon { width: 36px; }
+.btn[disabled] { opacity: 0.5; cursor: not-allowed; }
+
+/* ===== Form fields (Win10 text box: accent underline on focus) ===== */
+.field { display: flex; flex-direction: column; gap: var(--space-1); }
+.field__label { font-size: var(--text-sm); font-weight: var(--weight-semibold); color: var(--color-text); }
+.field__hint { font-family: var(--font-mono); font-size: var(--text-2xs); color: var(--color-text-subtle); }
+.field__error { font-size: var(--text-xs); color: var(--color-danger); }
+.input, .select, .textarea {
+  width: 100%; min-height: 44px;
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-surface-sunken);
+  border: var(--border-width) solid var(--color-border-strong);
+  border-bottom-width: 2px; border-radius: var(--radius-md);
+  color: var(--color-text);
+  transition: border-color var(--duration-fast), box-shadow var(--duration-base);
+}
+.textarea { min-height: 120px; resize: vertical; }
+.input::placeholder, .textarea::placeholder { color: var(--color-text-subtle); }
+.input:hover, .select:hover, .textarea:hover { border-color: var(--color-text-subtle); }
+.input:focus, .select:focus, .textarea:focus { outline: none; border-color: var(--color-border-strong); border-bottom-color: var(--color-brand); box-shadow: 0 6px 16px -10px var(--color-brand); }
+.input[aria-invalid="true"] { border-bottom-color: var(--color-danger); }
+
+.check { display: flex; align-items: center; gap: var(--space-2); font-size: var(--text-sm); color: var(--color-text); cursor: pointer; min-height: 32px; }
+.check input { width: 18px; height: 18px; accent-color: var(--color-brand); }
+.check:hover { color: var(--color-brand-strong); }
+
+/* ===== Tags (mono) ===== */
+.tag {
+  display: inline-flex; align-items: center; gap: var(--space-1);
+  padding: 3px var(--space-2);
+  font-family: var(--font-mono); font-size: var(--text-2xs); font-weight: var(--weight-medium);
+  letter-spacing: 0.02em;
+  background: var(--color-surface-sunken); color: var(--color-text-muted);
+  border: var(--border-width) solid var(--color-border); border-radius: var(--radius-sm);
+}
+.tag--brand { background: var(--color-brand-subtle); color: var(--color-brand-strong); border-color: var(--color-brand-muted); }
+.tag--accent { background: var(--color-accent-subtle); color: var(--color-accent-strong); border-color: transparent; }
+.tag--success { background: var(--color-success-subtle); color: var(--color-success); border-color: transparent; }
+.tag--info { background: var(--color-info-subtle); color: var(--color-info); border-color: transparent; }
+.tag-list { display: flex; flex-wrap: wrap; gap: var(--space-2); list-style: none; padding: 0; }
+
+/* ===== Card ===== */
+.card {
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border); border-radius: var(--radius-lg);
+  padding: var(--space-5);
+}
+
+/* ===== Company logo placeholder ===== */
+.company-logo {
+  flex: none; display: grid; place-items: center;
+  width: 48px; height: 48px;
+  background: var(--color-surface-sunken); color: var(--color-brand-strong);
+  border: var(--border-width) solid var(--color-border-strong); border-radius: var(--radius-md);
+  font-family: var(--font-display); font-weight: var(--weight-bold); font-size: var(--text-lg);
+}
+.company-logo--lg { width: 80px; height: 80px; font-size: var(--text-3xl); border-radius: var(--radius-lg); }
+
+/* ===== Brand wordmark ===== */
+.logo { display: inline-flex; align-items: center; color: var(--color-text); text-decoration: none !important; }
+.logo svg { height: 26px; width: auto; overflow: visible; }
+.logo__chevrons { fill: currentColor; transition: fill var(--duration-base) var(--ease-standard); }
+.logo:hover .logo__chevrons, .logo:focus-visible .logo__chevrons { fill: var(--color-brand); }
+
+/* Hero signature highlight: the phrase fills with an accent-to-companion gradient,
+   left to right, over the regular text colour. Uses the contrast-fitted "-strong" accents,
+   so it stays readable on both themes. */
+.brand-highlight {
+  white-space: nowrap; color: var(--color-brand-strong);
+  background:
+    linear-gradient(90deg, var(--color-brand-strong), var(--color-accent-strong)) 0 0 / 100% 100% no-repeat,
+    linear-gradient(var(--color-text), var(--color-text));
+  /* OKLab blending keeps the middle of the gradient bright instead of a muddy sRGB grey-brown. */
+  background-image:
+    linear-gradient(90deg in oklab, var(--color-brand-strong), var(--color-accent-strong)),
+    linear-gradient(var(--color-text), var(--color-text));
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: kola-ink 900ms var(--ease-wipe) 450ms backwards;
+}
+
+/* ===== Floating island (main navigation) =====
+   A dock-like glass capsule floating at the top. Full labels at the top of the page;
+   once the page scrolls it condenses to icons and re-expands on hover or keyboard focus.
+   Icons magnify like a dock (CSS only, pointer devices). */
+.site-header {
+  position: fixed; z-index: var(--z-header); left: 0; right: 0; top: calc(var(--safe-top) + var(--island-gap));
+  display: flex; justify-content: center; pointer-events: none;
+  padding-inline: max(var(--gutter), var(--safe-left)) max(var(--gutter), var(--safe-right));
+}
+/* Scroll sentinel: scrolls with the page; when it leaves the viewport the island condenses. */
+.island-sentinel { position: absolute; top: 0; left: 0; width: 1px; height: 48px; pointer-events: none; }
+#main { padding-top: var(--header-offset); }
+html { scroll-padding-top: var(--header-offset); }
+
+.island {
+  pointer-events: auto; position: relative; max-width: 100%;
+  display: flex; align-items: center; gap: var(--space-1);
+  height: var(--island-height); padding: 0 var(--space-1) 0 var(--space-4);
+  border-radius: var(--radius-pill);
+  box-shadow: inset 0 1px 0 var(--glass-highlight), var(--shadow-md);
+  animation: kola-drop 560ms var(--ease-unfold) backwards;
+  transition: height var(--duration-wipe) var(--ease-unfold), padding var(--duration-wipe) var(--ease-unfold);
+}
+@keyframes kola-drop { from { opacity: 0; transform: translateY(-14px) scale(0.96); } }
+.island__home { display: inline-flex; align-items: center; height: 100%; padding-right: var(--space-2); color: var(--color-text); text-decoration: none !important; }
+.island__home svg { height: 22px; width: auto; transition: height var(--duration-wipe) var(--ease-unfold); }
+.island__sep { flex: none; width: 1px; height: 22px; margin-inline: var(--space-1); background: var(--color-border-strong); }
+.island__group { display: flex; align-items: center; gap: 2px; height: 100%; list-style: none; padding: 0; margin: 0; }
+
+.dock-item {
+  position: relative; display: inline-flex; align-items: center; gap: var(--space-2);
+  height: 40px; min-width: 40px; padding: 0 11px; border: 0; border-radius: var(--radius-pill); background: none;
+  color: var(--color-text-muted); font-size: var(--text-sm); font-weight: var(--weight-medium); white-space: nowrap; text-decoration: none !important;
+  transition: color var(--duration-fast), background-color var(--duration-fast), gap var(--duration-wipe) var(--ease-unfold), padding var(--duration-wipe) var(--ease-unfold);
+}
+.dock-item:hover, .dock-item[aria-expanded="true"] { color: var(--color-text); background: var(--color-surface-hover); }
+.dock-item.active { color: var(--color-text); }
+.dock-item__icon { position: relative; flex: none; display: grid; place-items: center; transform-origin: 50% 30%; transition: transform 420ms var(--ease-spring); }
+/* Collapsible label: a 1fr -> 0fr grid track animates to the label's real width. */
+.dock-item__label { display: grid; grid-template-columns: 1fr; transition: grid-template-columns var(--duration-wipe) var(--ease-unfold), opacity var(--duration-base); }
+.dock-item__label > span { min-width: 0; overflow: hidden; }
+/* Running-app dot under the current page, as in a dock. */
+.dock-item.active::after {
+  content: ""; position: absolute; left: 18px; bottom: 2px; width: 4px; height: 4px;
+  border-radius: var(--radius-pill); background: var(--color-brand);
+}
+/* App-icon badge (saved count). */
+.dock-item__badge {
+  position: absolute; top: -7px; right: -9px; min-width: 17px; height: 17px; padding: 0 4px;
+  display: grid; place-items: center; border-radius: var(--radius-pill);
+  background: var(--color-accent); color: var(--color-on-accent); border: 2px solid var(--color-surface);
+  font-family: var(--font-mono); font-size: 10px; font-weight: var(--weight-semibold); line-height: 1; font-variant-numeric: tabular-nums;
+}
+.dock-item__avatar {
+  position: relative; width: 28px; height: 28px; border-radius: var(--radius-pill); display: grid; place-items: center;
+  background: var(--color-brand); color: var(--color-on-brand); font-size: 11px; font-weight: var(--weight-bold); letter-spacing: 0;
+}
+/* Agent "online" status: a small dot on the avatar, ringed by the island surface. */
+.dock-item__avatar::after {
+  content: ""; position: absolute; right: -1px; bottom: -1px; width: 9px; height: 9px; border-radius: var(--radius-pill);
+  background: var(--color-success); border: 2px solid var(--color-surface);
+}
+.dock-item--agent { padding-left: 6px; }
+.dock-item--agent.active::after { display: none; }
+.dock-item--cta { background: var(--color-brand); color: var(--color-on-brand); font-weight: var(--weight-semibold); }
+.dock-item--cta:hover { background: var(--color-brand-hover); color: var(--color-on-brand); }
+.island .dock-item:focus-visible { outline-offset: -2px; }
+
+/* Magnification: the hovered icon grows, its neighbours a little (pointer devices only). */
+@media (hover: hover) and (pointer: fine) {
+  .dock-slot:hover .dock-item__icon { transform: scale(1.24); }
+  .dock-slot:has(+ .dock-slot:hover) .dock-item__icon,
+  .dock-slot:hover + .dock-slot .dock-item__icon { transform: scale(1.1); }
+}
+
+/* Condensed: scrolled and idle (not hovered, not focused, menu closed). */
+.island.is-compact:not(:hover, :focus-within, .is-open) { height: var(--island-height-compact); padding-left: var(--space-3); }
+.island.is-compact:not(:hover, :focus-within, .is-open) .island__home svg { height: 18px; }
+.island.is-compact:not(:hover, :focus-within, .is-open) .dock-item { gap: 0; height: 36px; min-width: 36px; padding-inline: 9px; }
+.island.is-compact:not(:hover, :focus-within, .is-open) .dock-item--agent { padding-inline: 4px; }
+.island.is-compact:not(:hover, :focus-within, .is-open) .dock-item__label { grid-template-columns: 0fr; opacity: 0; }
+.island.is-compact:not(:hover, :focus-within, .is-open) .dock-item.active::after { left: 16px; bottom: 0; }
+
+/* Phones: always icons-only; labels stay in the accessibility tree. */
+@media (max-width: 720px) {
+  .island { padding-left: var(--space-3); }
+  .island__home svg { height: 19px; }
+  .island .dock-item { gap: 0; padding-inline: 10px; min-width: 42px; height: 42px; }
+  .island .dock-item--agent { padding-inline: 6px; }
+  .island .dock-item__label { grid-template-columns: 0fr; opacity: 0; }
+  .island .dock-item.active::after { left: 19px; }
+}
+@media (max-width: 360px) {
+  .island__sep { display: none; }
+  .island .dock-item { min-width: 38px; padding-inline: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .island, .dock-item, .dock-item__icon, .dock-item__label, .island__home svg { transition: none; animation: none; }
+  .dock-slot .dock-item__icon { transform: none !important; }
+}
+
+.count-badge {
+  min-width: 18px; height: 18px; padding: 0 5px; border-radius: var(--radius-pill);
+  background: var(--color-accent); color: var(--color-on-accent);
+  font-family: var(--font-mono); font-size: var(--text-2xs); font-weight: var(--weight-medium);
+  display: inline-grid; place-items: center;
+}
+
+@media (min-width: 900px) {
+  .site-nav, .site-header__actions { display: flex; }
+  .site-header__mobile { display: none; }
+}
+
+/* ===== Drawer (acrylic panel) ===== */
+.drawer-backdrop { position: fixed; inset: 0; background: var(--color-overlay); z-index: var(--z-drawer); }
+.drawer {
+  padding-right: var(--safe-right);
+  position: fixed; top: 0; bottom: 0; right: 0; z-index: var(--z-drawer);
+  width: min(380px, 90vw);
+  display: flex; flex-direction: column; box-shadow: var(--shadow-lg);
+  border-width: 0 0 0 var(--border-width) !important;
+}
+.drawer--left { right: auto; left: 0; padding-right: 0; padding-left: var(--safe-left); border-width: 0 var(--border-width) 0 0 !important; }
+.drawer > * { position: relative; z-index: 1; }
+.drawer__header { display: flex; align-items: center; justify-content: space-between; padding: calc(var(--space-3) + var(--safe-top)) var(--space-4) var(--space-3); border-bottom: var(--border-width) solid var(--color-border); }
+.drawer__header strong { font-family: var(--font-display); font-weight: var(--weight-bold); font-size: var(--text-lg); }
+.drawer__body { flex: 1; overflow-y: auto; padding: var(--space-4); }
+.drawer__footer { padding: var(--space-4) var(--space-4) calc(var(--space-4) + var(--safe-bottom)); border-top: var(--border-width) solid var(--color-border); display: flex; gap: var(--space-2); }
+/* ===== Footer ===== */
+.site-footer { margin-top: var(--space-20); background: var(--color-bg-deep); border-top: var(--border-width) solid var(--color-border); padding: var(--space-12) 0 calc(var(--space-6) + var(--safe-bottom)); }
+.site-footer__grid { display: grid; gap: var(--space-8); grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+.site-footer h2 { font-family: var(--font-mono); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: var(--tracking-mono); color: var(--color-text-subtle); margin-bottom: var(--space-3); }
+.site-footer ul { list-style: none; padding: 0; display: grid; gap: var(--space-2); }
+.site-footer a { color: var(--color-text-muted); font-size: var(--text-sm); }
+.site-footer a:hover { color: var(--color-text); }
+.site-footer__bottom { margin-top: var(--space-10); padding-top: var(--space-6); border-top: var(--border-width) solid var(--color-border); display: flex; flex-wrap: wrap; gap: var(--space-4); justify-content: space-between; font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-text-subtle); }
+
+/* ===== Search bar (acrylic) ===== */
+/* Outer radius = inner control radius + padding, so the corners stay concentric. */
+.search-bar { display: grid; gap: var(--space-2); padding: var(--space-2); border-radius: var(--radius-xl); }
+.search-bar > * { position: relative; z-index: 1; }
+.search-bar__field { position: relative; display: flex; align-items: center; }
+.search-bar__field svg { position: absolute; left: var(--space-3); color: var(--color-text-subtle); pointer-events: none; z-index: 1; }
+.search-bar__field .input { background: transparent; border: none; border-bottom: 2px solid transparent; padding-left: 40px; min-height: 48px; }
+.search-bar__field .input:focus { background: var(--color-brand-subtle); border-bottom-color: var(--color-brand); box-shadow: none; }
+.search-bar__field:focus-within svg { color: var(--color-brand); }
+@media (min-width: 768px) {
+  .search-bar { grid-template-columns: 1fr 1fr auto; align-items: center; }
+  .search-bar__field + .search-bar__field { border-left: var(--border-width) solid var(--color-border); }
+}
+
+/* ===== Breadcrumbs (mono path) ===== */
+.breadcrumbs ol { display: flex; flex-wrap: wrap; gap: var(--space-2); list-style: none; padding: 0; font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-text-subtle); }
+.breadcrumbs li + li::before { content: "/"; margin-right: var(--space-2); color: var(--color-accent); }
+.breadcrumbs a { color: var(--color-text-muted); }
+.breadcrumbs [aria-current="page"] { color: var(--color-text); }
+
+/* ===== Job card ===== */
+.job-card {
+  position: relative; display: flex; gap: var(--space-4);
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border); border-radius: var(--radius-lg);
+  padding: var(--space-4) var(--space-4) var(--space-4) var(--space-5);
+  transition: border-color var(--duration-base) ease, transform 140ms var(--ease-out-expo), box-shadow var(--duration-base);
+}
+/* Left selection pill, like a selected item in a Fluent list */
+.job-card > .job-card__bar {
+  position: absolute; left: 6px; top: var(--space-4); bottom: var(--space-4); width: var(--accent-bar);
+  border-radius: var(--radius-pill);
+  background: var(--color-brand);
+  transform: scaleY(0); transition: transform var(--duration-base) var(--ease-out-expo);
+}
+.job-card:hover { transform: translateY(-1px); border-color: color-mix(in srgb, var(--color-brand) 45%, var(--color-border)); box-shadow: var(--shadow-sm); }
+.job-card:hover > .job-card__bar { transform: scaleY(0.4); }
+.job-card.is-selected { border-color: var(--color-brand-muted); background: var(--color-surface-raised); }
+.job-card.is-selected > .job-card__bar { transform: scaleY(1); }
+.job-card__body { flex: 1; min-width: 0; display: grid; gap: var(--space-1); }
+.job-card__title { font-family: var(--font-sans); font-size: var(--text-lg); font-weight: var(--weight-semibold); line-height: 1.25; letter-spacing: -0.02em; }
+.job-card__title a { color: var(--color-text); }
+.job-card__title a:hover { text-decoration: none; color: var(--color-brand-strong); }
+.job-card__title a::after { content: ""; position: absolute; inset: 0; z-index: 2; }
+.job-card__company { font-size: var(--text-sm); color: var(--color-text-muted); }
+.job-card__meta { display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-4); font-size: var(--text-sm); color: var(--color-text-muted); }
+.job-card__meta span { display: inline-flex; align-items: center; gap: var(--space-1); }
+.job-card__salary { font-family: var(--font-mono); color: var(--color-text); }
+.job-card__footer { display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap; margin-top: var(--space-2); }
+.job-card__posted { font-family: var(--font-mono); font-size: var(--text-2xs); color: var(--color-text-subtle); margin-left: auto; }
+.job-card__save { position: relative; z-index: 3; align-self: flex-start; }
+
+.save-btn { color: var(--color-text-subtle); }
+.save-btn:hover { color: var(--color-text); }
+.save-btn[aria-pressed="true"] { color: var(--color-accent); }
+.save-btn[aria-pressed="true"] svg { fill: currentColor; }
+
+/* ===== Illustrations (see Illustration.tsx) ===== */
+.illo { width: 100%; }
+.illo svg { display: block; width: 100%; height: 100%; fill: var(--illo-ink); }
+.illo .ia { fill: var(--illo-accent); }
+.illo .ib { fill: var(--illo-accent-soft); }
+.illo .ik { fill: var(--illo-ink); }
+.illo .ig { fill: var(--illo-ink-soft); }
+.illo .il { fill: var(--illo-line); }
+.illo .is { fill: var(--illo-shade); }
+.illo .it { fill: var(--illo-tint); }
+.illo .ip { fill: var(--illo-paper); }
+.illo .jk { stroke: var(--illo-ink); }
+
+/* Motion. Transforms only, nothing per frame in JS. Accent parts scale around their own centre. */
+.illo .ia, .illo .ib {
+  transform-box: fill-box; transform-origin: 50% 60%;
+  transition: translate 420ms var(--ease-spring), scale 320ms var(--ease-spring);
+}
+/* Entrance, once, when first scrolled into view: the art fades in, then accent parts pop in turn. */
+.illo:not([data-seen]) svg { opacity: 0; }
+.illo[data-seen] svg { animation: kola-fade var(--duration-slow) var(--ease-standard) backwards; }
+.illo[data-seen] .ia, .illo[data-seen] .ib {
+  animation: kola-illo-pop 560ms var(--ease-spring) backwards;
+  animation-delay: calc(160ms + min(var(--n, 0), 14) * 45ms);
+}
+@keyframes kola-fade { from { opacity: 0; } }
+@keyframes kola-illo-pop { from { opacity: 0; transform: translateY(8px) scale(0.6); } }
+/* XP gain (onboarding): accent parts pop. */
+.illo[data-cheer] .ia, .illo[data-cheer] .ib { scale: 1.14; }
+/* Hero: a slow float while on screen (paused off screen), and a gentle parallax on scroll. */
+.illo[data-preset="hero"][data-seen] svg {
+  animation: kola-fade var(--duration-slow) var(--ease-standard) backwards, kola-float 6s ease-in-out 900ms infinite;
+  animation-play-state: running, paused;
+}
+.illo[data-preset="hero"][data-in] svg { animation-play-state: running, running; }
+@keyframes kola-float { 50% { translate: 0 -6px; } }
+@supports (animation-timeline: scroll()) {
+  .illo[data-preset="hero"] { animation: kola-parallax linear both; animation-timeline: scroll(root); animation-range: 0 640px; }
+  @keyframes kola-parallax { to { translate: 0 56px; } }
+}
+/* Pointer devices: art leans toward the cursor (--tx/--ty from useRevealHighlight) and accents lift. */
+@media (hover: hover) and (pointer: fine) {
+  .illo[data-tilt] {
+    transform: perspective(900px) rotateX(calc(var(--ty, 0) * -9deg)) rotateY(calc(var(--tx, 0) * 11deg));
+    transition: transform 600ms var(--ease-spring);
+  }
+  .illo[data-tilt]:hover .ia, .illo[data-tilt]:hover .ib { translate: 0 -3px; }
+}
+
+/* ===== Empty state ===== */
+.empty-state { text-align: center; padding: var(--space-16) var(--space-4); display: grid; justify-items: center; gap: var(--space-3); }
+.empty-state__art { width: min(260px, 70vw); margin-bottom: var(--space-3); }
+.empty-state__icon { width: 64px; height: 64px; border-radius: var(--radius-xl); background: var(--color-brand-subtle); border: var(--border-width) solid var(--color-brand-muted); color: var(--color-brand-strong); display: grid; place-items: center; }
+
+/* ===== Toast (acrylic) ===== */
+.toast-region {
+  position: fixed; left: 0; right: 0; bottom: calc(var(--space-6) + var(--safe-bottom)); z-index: var(--z-toast);
+  display: flex; justify-content: center; pointer-events: none; padding-inline: var(--gutter);
+}
+.toast {
+  pointer-events: auto;
+  padding: var(--space-3) var(--space-5) var(--space-3) var(--space-6); box-shadow: var(--shadow-lg);
+  font-size: var(--text-sm); color: var(--color-text);
+  border-radius: var(--radius-lg);
+}
+.toast::before {
+  content: ""; position: absolute; left: 10px; top: 10px; bottom: 10px; width: var(--accent-bar);
+  border-radius: var(--radius-pill); background: var(--color-brand);
+}
+.toast { display: flex; align-items: center; gap: var(--space-4); }
+.toast__action {
+  min-height: 32px; padding: 0 var(--space-3); margin: calc(var(--space-2) * -1) calc(var(--space-2) * -1) calc(var(--space-2) * -1) 0;
+  background: transparent; border: var(--border-width) solid var(--color-brand-muted); border-radius: var(--radius-md);
+  color: var(--color-brand-strong); font-weight: var(--weight-medium); font-size: var(--text-sm);
+}
+.toast__action:hover { background: var(--color-brand-subtle); }
+@media (pointer: coarse) { .toast__action { min-height: var(--tap-min); } }
+
+/* ===== Theme toggle ===== */
+.theme-toggle svg { transition: transform var(--duration-slow) var(--ease-out-expo); }
+.theme-toggle:hover svg { transform: rotate(-20deg); }
+
+/* ===== Sections ===== */
+.section { padding: var(--space-12) 0; }
+.section__head { display: flex; align-items: end; justify-content: space-between; gap: var(--space-4); margin-bottom: var(--space-6); flex-wrap: wrap; }
+.section__head h2 { margin-top: var(--space-3); }
+.section__head p { margin-top: var(--space-2); max-width: var(--measure); }
+
+/* ===== Touch targets =====
+   On touch screens, small controls keep their look but grow their hit area to --tap-min.
+   Visual size changes only where padding can't do it without overlapping neighbours. */
+@media (pointer: coarse) {
+  .btn--sm { min-height: var(--tap-min); }
+  .btn--sm.btn--icon { width: var(--tap-min); }
+  .input, .select { min-height: var(--tap-min); }
+  .check { min-height: var(--tap-min); }
+  .link-btn { min-height: var(--tap-min); padding-inline: var(--space-2); }
+  .chip { min-height: var(--tap-min); }
+  .chip button { width: var(--tap-min); height: var(--tap-min); margin-right: calc(var(--space-1) * -1); }
+  .breadcrumbs a { display: inline-flex; align-items: center; min-height: var(--tap-min); }
+  .site-footer ul { gap: 0; }
+  .site-footer li a { display: inline-flex; align-items: center; min-height: var(--tap-min); }
+  .site-footer__bottom a { display: inline-flex; align-items: center; min-height: var(--tap-min); }
+  .hero__popular a { display: inline-flex; align-items: center; min-height: var(--tap-min); }
+}
+
+/* ===== Keyboard hints ===== */
+.kbd {
+  display: inline-grid; place-items: center; min-width: 22px; height: 22px; padding: 0 6px;
+  font-family: var(--font-mono); font-size: var(--text-2xs); color: var(--color-text-subtle);
+  background: var(--color-surface-sunken); border: var(--border-width) solid var(--color-border-strong);
+  border-bottom-width: 2px; border-radius: var(--radius-xs);
+}
+.search-bar__kbd { position: absolute; right: var(--space-3); pointer-events: none; transition: opacity var(--duration-fast); }
+.search-bar__field:focus-within .search-bar__kbd { opacity: 0; }
+/* Only devices with a keyboard-and-mouse setup need the hint. */
+@media (hover: none), (pointer: coarse) { .search-bar__kbd { display: none; } }
+
+
+/* ===== Accent picker (favourite colour) =====
+   --sw-d / --sw-l hold each swatch's dark and light theme shade (set inline). */
+.accent-picker { border: none; padding: 0; margin: 0; min-width: 0; }
+.accent-picker legend { padding: 0; margin-bottom: var(--space-1); }
+.accent-picker__name { color: var(--color-text-subtle); font-weight: var(--weight-regular); }
+.accent-picker__hint { margin-bottom: var(--space-2); }
+.accent-picker__swatches { display: flex; flex-wrap: wrap; gap: var(--space-1); margin-top: var(--space-2); }
+.accent-swatch {
+  --sw: var(--sw-d);
+  position: relative; display: grid; place-items: center;
+  width: var(--tap-min); height: var(--tap-min); border-radius: var(--radius-pill); cursor: pointer;
+}
+:root[data-theme="light"] .accent-swatch { --sw: var(--sw-l); }
+/* The real input covers the whole swatch, so the hit area is the full tap target. */
+.accent-swatch__input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.accent-swatch__dot {
+  display: grid; place-items: center; width: 30px; height: 30px; border-radius: var(--radius-pill);
+  background: var(--sw); color: var(--color-on-brand);
+  box-shadow: inset 0 0 0 1px var(--color-border-strong);
+  transition: transform var(--duration-fast) var(--ease-standard), box-shadow var(--duration-base) var(--ease-standard);
+  pointer-events: none;
+}
+.accent-swatch:hover .accent-swatch__dot { transform: scale(1.08); }
+.accent-swatch.is-selected .accent-swatch__dot {
+  outline: 2px solid var(--sw); outline-offset: 3px;
+  box-shadow: 0 0 14px -2px var(--sw);
+}
+.accent-swatch__input:focus-visible + .accent-swatch__dot { outline: 2px solid var(--color-focus-ring); outline-offset: 3px; }
+/* Custom: a hue wheel until a custom colour is chosen. */
+.accent-swatch--custom:not(.is-selected) .accent-swatch__dot {
+  background: conic-gradient(#D97B7B, #D8B25C, #93BD72, #5EB2B3, #6F9EE6, #AE8AD8, #D97BB0, #D97B7B);
+}
+.accent-picker--compact .accent-swatch { width: 30px; height: 30px; }
+.accent-picker--compact .accent-swatch__dot { width: 22px; height: 22px; }
+.accent-picker--compact .accent-swatch.is-selected .accent-swatch__dot,
+.accent-picker--compact .accent-swatch__input:focus-visible + .accent-swatch__dot { outline-offset: 2px; }
+.accent-picker--compact legend { font-family: var(--font-mono); font-size: var(--text-2xs); font-weight: var(--weight-medium); text-transform: uppercase; letter-spacing: var(--tracking-mono); color: var(--color-text-subtle); }
+.accent-picker--compact .accent-picker__name { text-transform: none; letter-spacing: 0; }
+@media (pointer: coarse) {
+  .accent-picker--compact .accent-swatch { width: var(--tap-min); height: var(--tap-min); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .accent-swatch:hover .accent-swatch__dot { transform: none; }
+}
