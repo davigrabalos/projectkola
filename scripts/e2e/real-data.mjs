@@ -1,5 +1,5 @@
 // The app on real data, end to end, against a running Worker:
-//   npm run build && npm run dev:api   (then run a few ingests, see README)   then   npm run e2e:real
+//   npm run build:api && npm run dev:api   (then run a few ingests, see README)   then   npm run e2e:real
 import { start, sleep } from './harness.mjs';
 
 const baseUrl = process.env.APP_URL ?? 'http://localhost:8787';
@@ -7,14 +7,15 @@ const { send, evaluate: js, go, shot, check, errors, finish } = await start('rea
 const wait = async (expr, ms = 6000) => { for (let t = 0; t < ms; t += 150) { if (await js(expr)) return true; await sleep(150); } return false; };
 const num = (s) => Number(String(s).replace(/[^\d]/g, ''));
 
-// Home: real stats, category tiles, latest jobs, ranked deals
+// Home: real stats, category tiles, latest jobs, ranked shortlist
 await go('/', 400); await js(`localStorage.clear(); localStorage.setItem('kola:theme','dark')`); await go('/', 2500);
 const stats = await js(`[...document.querySelectorAll('.stats strong')].map(e => e.textContent)`);
 check('home stats come from the API', num(stats[0]) > 1000 && num(stats[1]) >= 30, stats.join(' / '));
 check('category tiles show live counts', await js(`[...document.querySelectorAll('.tile__count')].every(e => /\\d/.test(e.textContent))`));
 check('latest jobs are real, with companies', await js(`(() => { const c = [...document.querySelectorAll('.job-grid .job-card')]; return c.length === 6 && c.every(x => x.querySelector('.job-card__company').textContent.trim()); })()`));
-check('3 bespoke deals with a match score', await wait(`document.querySelectorAll('.card.glass .tag--brand').length >= 3`) && await js(`[...document.querySelectorAll('.card.glass .tag--brand')].slice(0,3).every(t => /^\\d+% Profile Match$/.test(t.textContent))`));
-await js(`[...document.querySelectorAll('button')].find(b => b.textContent.includes('View Full Deal Analysis')).click()`); await sleep(600);
+check('hero shortlist: 3 real matches with a score ring', await wait(`document.querySelectorAll('.shortlist .ring').length === 3`) && await js(`[...document.querySelectorAll('.shortlist .ring')].every(r => /^\\d+% match$/.test(r.getAttribute('aria-label')))`));
+check('search box above the fold', await js(`document.querySelector('.hero__search').getBoundingClientRect().bottom < innerHeight`));
+await js(`document.querySelector('.shortlist__card[data-pos="0"] .shortlist__title button').click()`); await sleep(600);
 check('deal analysis explains the score and links out', await js(`(() => { const d = document.querySelector('.drawer'); const a = d?.querySelector('a[target=_blank]'); return !!d && /Skills in common/.test(d.textContent) && a?.href.startsWith('https://'); })()`));
 await shot('r-home-deal.png');
 await send('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Escape', code: 'Escape', windowsVirtualKeyCode: 27 }); await sleep(300);

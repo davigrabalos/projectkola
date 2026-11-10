@@ -356,8 +356,8 @@ html { scroll-padding-top: var(--header-offset); }
 .illo[data-preset="hero"][data-in] svg { animation-play-state: running, running; }
 @keyframes kola-float { 50% { translate: 0 -6px; } }
 @supports (animation-timeline: scroll()) {
-  .illo[data-preset="hero"] { animation: kola-parallax linear both; animation-timeline: scroll(root); animation-range: 0 640px; }
-  @keyframes kola-parallax { to { translate: 0 56px; } }
+  .illo[data-preset="hero"] { animation: kola-parallax linear both; animation-timeline: view(); animation-range: cover; }
+  @keyframes kola-parallax { from { translate: 0 28px; } to { translate: 0 -28px; } }
 }
 /* Pointer devices: art leans toward the cursor (--tx/--ty from useRevealHighlight) and accents lift. */
 @media (hover: hover) and (pointer: fine) {

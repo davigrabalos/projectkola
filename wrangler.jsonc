@@ -21,8 +21,10 @@
       "migrations_dir": "worker/migrations"
     }
   ],
-  // Every 15 minutes, a few sources at a time. Needs the Workers Paid plan for CPU (see worker/ingest/run.ts).
-  "triggers": { "crons": ["*/15 * * * *"] },
+  // Job ingest cron, paused while the site runs on mock data (src/data, `npm run mock:refresh`).
+  // An empty list (not a missing key) removes the deployed schedule. To switch back to real jobs, set
+  // ["*/15 * * * *"] (a few sources every 15 minutes; needs Workers Paid, see worker/ingest/run.ts) and build with `npm run build:api`.
+  "triggers": { "crons": [] },
   "vars": { "INGEST_PER_RUN": "3", "CACHE_TTL": "60" },
   "observability": { "enabled": true }
 }

@@ -10,15 +10,15 @@
 export const brand = {
   name: 'Kola',
   /** Short line under the logo / in the hero. */
-  tagline: 'Your autonomous AI Career Agent.',
+  tagline: 'Real jobs from real company boards, ranked for you.',
   /** Longer hero supporting copy. */
-  heroSubtitle:
-    'Kola ingests your background, skills, and career goals, analyzes market intelligence, and curates bespoke job deals tailored for your exact career trajectory.',
+  heroSubtitle: (companies?: number) =>
+    `Real openings from the career pages of ${companies ?? 'dozens of'} companies, refreshed every few hours and ranked against your skills, level and pay.`,
   /** Used in <title> and meta tags. */
   titleSuffix: 'Kola',
   /** Voice: friendly, direct, encouraging. Keep microcopy short. */
   voice: {
-    searchPlaceholderWhat: 'Role target, skill or company',
+    searchPlaceholderWhat: 'Role, skill or company',
     searchPlaceholderWhere: 'City, region or "Remote"',
     emptyResults: "No curated deals match those criteria yet.",
     emptyResultsHint: 'Try adjusting your agent parameters or selecting broader filters.',
@@ -29,8 +29,15 @@ export const brand = {
   /** Brand "specialities": the signature elements that make Kola feel like Kola. */
   signature: {
     /** Wordmark paths live in src/brand/logo-paths.ts. The "<>" in K<>la is the brand's code motif. */
-    /** Highlighted word in the hero headline gets the brand gradient underline. */
-    heroHeadline: { before: 'Your personal AI agent', highlight: 'analyzes your data', after: 'to unlock top career deals.' },
+    /** Hero headline: "Your next role, / in Lisbon." The city (accent colour) rolls through `cities`;
+        `still` replaces it under reduced motion, `label` is what screen readers hear. */
+    heroHeadline: {
+      lead: 'Your next role,',
+      pre: 'in',
+      cities: ['Lisbon.', 'Berlin.', 'São Paulo.', 'London.', 'Amsterdam.', 'Barcelona.', 'Paris.'],
+      still: 'Europe & Brazil.',
+      label: 'Your next role, in Europe or Brazil.',
+    },
   },
   contact: {
     email: 'hello@kola.example',
@@ -43,5 +50,5 @@ export const brand = {
 } as const;
 
 export function pageTitle(title?: string) {
-  return title ? `${title} · ${brand.titleSuffix}` : `${brand.titleSuffix} · Autonomous AI Career Agent`;
+  return title ? `${title} · ${brand.titleSuffix}` : `${brand.titleSuffix} · Real jobs, ranked for you`;
 }

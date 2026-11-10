@@ -71,6 +71,7 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .anim-rise, .brand-highlight, .agent-dropdown { animation: none; }
+  .shortlist__card, .shortlist__stack, .ring { animation: none !important; transition: none !important; }
   .illo, .illo svg, .illo .ia, .illo .ib { animation: none !important; transition: none !important; transform: none !important; translate: none !important; scale: none !important; }
   .illo:not([data-seen]) svg { opacity: 1 !important; }
   .btn::after { transition: none; }

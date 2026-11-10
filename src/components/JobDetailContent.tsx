@@ -95,13 +95,13 @@ export function JobDetailContent({ job, headingLevel = 1, showOpenLink, descript
       {job.responsibilities.length > 0 && (
         <section className="job-detail__section">
           <h2>What you'll do</h2>
-          <ul>{job.responsibilities.map((r) => <li key={r}>{r}</li>)}</ul>
+          <ul>{job.responsibilities.map((r, n) => <li key={n}>{r}</li>)}</ul>
         </section>
       )}
       {job.requirements.length > 0 && (
         <section className="job-detail__section">
           <h2>What we're looking for</h2>
-          <ul>{job.requirements.map((r) => <li key={r}>{r}</li>)}</ul>
+          <ul>{job.requirements.map((r, n) => <li key={n}>{r}</li>)}</ul>
         </section>
       )}
       {job.skills.length > 0 && (
@@ -113,7 +113,10 @@ export function JobDetailContent({ job, headingLevel = 1, showOpenLink, descript
       {job.benefits.length > 0 && (
         <section className="job-detail__section">
           <h2>Benefits</h2>
-          <ul className="tag-list">{job.benefits.map((b) => <li key={b} className="tag tag--success"><Icon name="check" size={12} />{b}</li>)}</ul>
+          {/* Short perks read well as chips; postings that spell them out in sentences get a plain list. */}
+          {job.benefits.some((b) => b.length > 40)
+            ? <ul>{job.benefits.map((b, n) => <li key={n}>{b}</li>)}</ul>
+            : <ul className="tag-list">{job.benefits.map((b) => <li key={b} className="tag tag--success"><Icon name="check" size={12} />{b}</li>)}</ul>}
         </section>
       )}
       <SourceNote job={job} />

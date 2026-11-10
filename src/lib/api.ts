@@ -2,9 +2,10 @@ import type { Company, Job } from '../data/types';
 import { serializeFilters, type JobFilters } from './filter-params';
 
 /**
- * Client for the Kola API (worker/api.ts, same origin under /api).
- * With VITE_USE_MOCK=1 the bundled fixtures answer instead, with realistic latency (offline work, e2e tests);
- * that module is only loaded in mock mode, so production builds do not ship the fixtures.
+ * Client for the Kola API. For now the app runs on mock data by default: src/lib/mock-api.ts answers from
+ * src/data (real postings snapshotted by `npm run mock:refresh`), with realistic latency.
+ * With VITE_USE_API=1 it calls the Worker's JSON API instead (worker/api.ts, same origin under /api);
+ * the mock module is then never loaded.
  */
 
 export interface JobPage { jobs: Job[]; nextCursor: string | null; total: number }
@@ -37,7 +38,7 @@ export class ApiError extends Error {
   }
 }
 
-export const USE_MOCK = import.meta.env.VITE_USE_MOCK === '1';
+export const USE_MOCK = import.meta.env.VITE_USE_API !== '1';
 const mock = () => import('./mock-api');
 
 export const PAGE_SIZE = 20;

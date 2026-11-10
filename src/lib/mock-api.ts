@@ -6,7 +6,7 @@ import { parseFilters, serializeFilters, type JobFilters } from './filter-params
 import type { ApplicationPayload, CompanyWithJobs, JobPage, Meta } from './api';
 
 /**
- * Mock API (VITE_USE_MOCK=1): the bundled fixtures, answered with realistic latency so loading states,
+ * Mock API (the default; VITE_USE_API=1 switches to the Worker): the bundled data, answered with realistic latency so loading states,
  * caching and paging behave as they do against the real backend. Same shapes as worker/api.ts.
  */
 export const MOCK_LATENCY_MS = 600;

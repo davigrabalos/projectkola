@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite",
     "dev:api": "wrangler dev --test-scheduled",
+    "build:api": "tsc -b && tsc -p worker/tsconfig.json && VITE_USE_API=1 vite build",
+    "mock:refresh": "node --experimental-strip-types --no-warnings scripts/mock/refresh-jobs.mjs",
     "build": "tsc -b && tsc -p worker/tsconfig.json && vite build",
     "preview": "vite preview",
     "typecheck": "tsc -b --noEmit && tsc -p worker/tsconfig.json",
