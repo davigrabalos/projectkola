@@ -85,7 +85,7 @@ function LoadedJobCard({ job, selected, onSelect, index = 0, morph = true }: Ext
       onClick={handleCardClick}
     >
       <span className="job-card__bar" aria-hidden="true" />
-      <CompanyLogo ref={logoRef} name={company?.name ?? '?'} />
+      <CompanyLogo ref={logoRef} id={job.companyId} name={company?.name ?? '?'} />
       <div className="job-card__body">
         <h3 ref={titleRef} className="job-card__title">
           <TransitionLink

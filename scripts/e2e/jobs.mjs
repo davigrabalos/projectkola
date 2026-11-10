@@ -3,6 +3,7 @@
 import { start, sleep } from './harness.mjs';
 import { jobs } from '../../src/data/jobs.ts';
 import { companies } from '../../src/data/companies.ts';
+import { logos } from '../../src/data/logos.ts';
 const { evaluate: js, go, shot, check, errors, finish } = await start('jobs', { debugPort: 9354 });
 const wait = async (expr, ms = 5000) => { for (let t = 0; t < ms; t += 150) { if (await js(expr)) return true; await sleep(150); } return false; };
 
@@ -32,6 +33,18 @@ check('category filter', await js(`document.querySelector('#results-heading stro
 // Companies
 await go('/companies', 1800);
 check('companies page lists the hiring partners', await js(`document.querySelectorAll('.company-card').length`) === companies.length, companies.length);
+check('companies: space between the search box and the grid', await js(`document.querySelector('.company-grid').getBoundingClientRect().top - document.querySelector('.company-search').getBoundingClientRect().bottom`) >= 16);
+await js(`document.querySelectorAll('.company-logo img').forEach(i => i.loading = 'eager')`);
+await wait(`[...document.querySelectorAll('.company-card .company-logo img')].every(i => i.complete)`, 8000);
+const withLogo = companies.filter((c) => logos[c.id]).length;
+check('companies: every self-hosted logo loads', await js(`[...document.querySelectorAll('.company-card .company-logo img')].filter(i => i.naturalWidth > 0).length`) === withLogo, withLogo);
+check('companies: the rest keep their initials', await js(`[...document.querySelectorAll('.company-card .company-logo:not(.company-logo--img)')].every(l => /^[A-Z0-9]{1,2}$/.test(l.textContent))`) === true);
+check('logos sit on a white tile', await js(`getComputedStyle(document.querySelector('.company-logo--img')).backgroundColor`) === 'rgb(255, 255, 255)');
+await shot('j-companies-light.png');
+await js(`localStorage.setItem('kola:theme','dark')`); await go('/companies', 1800);
+await js(`document.querySelectorAll('.company-logo img').forEach(i => i.loading = 'eager')`); await sleep(1200);
+await shot('j-companies-dark.png');
+await js(`localStorage.setItem('kola:theme','light')`);
 await go(`/companies/${rich.companyId}`, 1800);
 check('company page lists its jobs', await js(`document.querySelectorAll('.job-card').length`) === jobs.filter((j) => j.companyId === rich.companyId).length);
 

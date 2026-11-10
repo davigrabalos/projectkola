@@ -150,7 +150,7 @@ function ShortlistCard({ item: { job, match }, pos, leaving, label, hidden, onOp
       {...inert}
     >
       <div className="shortlist__top">
-        <CompanyLogo name={job.company?.name ?? '?'} />
+        <CompanyLogo id={job.companyId} name={job.company?.name ?? '?'} />
         <div className="shortlist__who">
           <div className="shortlist__company">{job.company?.name}</div>
           <div className="shortlist__where">{where}{more.length > 0 && ` +${more.length} more`}</div>

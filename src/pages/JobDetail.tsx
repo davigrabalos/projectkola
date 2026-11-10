@@ -45,7 +45,7 @@ export default function JobDetail() {
             {company && (
               <div className="card stack reveal">
                 <div className="company-card__top">
-                  <CompanyLogo name={company.name} />
+                  <CompanyLogo id={company.id} name={company.name} />
                   <div><strong>{company.name}</strong><div className="subtle">{[company.industry, company.headquarters].filter(Boolean).join(' · ')}</div></div>
                 </div>
                 {company.about && <p>{company.about}</p>}

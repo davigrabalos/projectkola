@@ -34,7 +34,7 @@ export default function CompanyDetail() {
     <div className="container" style={{ paddingTop: 'var(--space-6)' }}>
       <Breadcrumbs items={[{ label: 'Companies', to: '/companies' }, { label: company.name }]} />
       <div className="company-hero">
-        <CompanyLogo name={company.name} size="lg" />
+        <CompanyLogo id={company.id} name={company.name} size="lg" />
         <div style={{ flex: 1 }}>
           <h1>{company.name}</h1>
           <p>{[company.industry, company.size, company.headquarters].filter(Boolean).join(' · ')}</p>

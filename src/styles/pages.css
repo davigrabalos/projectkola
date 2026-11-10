@@ -335,7 +335,7 @@
 .company-card:hover { text-decoration: none; transform: translateY(-1px); border-color: color-mix(in srgb, var(--color-brand) 45%, var(--color-border)); }
 .company-card__top { display: flex; gap: var(--space-3); align-items: center; }
 .company-hero { display: flex; gap: var(--space-5); align-items: center; flex-wrap: wrap; padding: var(--space-8) 0; }
-.company-search { position: relative; max-width: 440px; margin-bottom: var(--space-6); }
+.company-search { display: block; position: relative; max-width: 440px; margin-bottom: var(--space-6); }
 .company-search svg { position: absolute; left: var(--space-3); top: 50%; transform: translateY(-50%); color: var(--color-text-subtle); pointer-events: none; }
 .company-search .input { padding-left: 40px; }
 

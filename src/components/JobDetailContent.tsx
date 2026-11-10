@@ -55,7 +55,7 @@ export function JobDetailContent({ job, headingLevel = 1, showOpenLink, descript
     <div className="stack">
       <header className="job-detail__header">
         <div className="job-detail__top">
-          <CompanyLogo name={company?.name ?? '?'} style={vtLogo} />
+          <CompanyLogo id={job.companyId} name={company?.name ?? '?'} style={vtLogo} />
           <div>
             <H className="job-detail__title" style={vtTitle}>{job.title}</H>
             <Link to={`/companies/${company?.id}`} className="job-detail__company">{company?.name}</Link>

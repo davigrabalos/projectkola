@@ -49,7 +49,7 @@ export default function Companies() {
             return (
               <Link key={c.id} to={`/companies/${c.id}`} className="card company-card reveal">
                 <div className="company-card__top">
-                  <CompanyLogo name={c.name} />
+                  <CompanyLogo id={c.id} name={c.name} />
                   <div>
                     <strong>{c.name}</strong>
                     <div className="subtle">{c.industry} · {c.headquarters}</div>
